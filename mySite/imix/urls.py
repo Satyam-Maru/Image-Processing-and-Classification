@@ -20,5 +20,6 @@ from imix import views
 
 urlpatterns = [
     path('', views.homepage, name='home'),
-    path('base/', views.base, name='base')
+    path('img_process/', views.img_process, name='img_process'),
+    path('img_classify/', views.img_classify, name='img_classify')
 ]

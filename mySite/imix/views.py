@@ -4,5 +4,8 @@ from django.shortcuts import render
 def homepage(request):
     return render(request, 'imix/index.html')
 
-def base(request):
-    return render(request, 'imix/base.html')
+def img_process(request):
+    return render(request, 'imix/img_processing.html')
+
+def img_classify(request):
+    return render(request, 'imix/img_classification.html')

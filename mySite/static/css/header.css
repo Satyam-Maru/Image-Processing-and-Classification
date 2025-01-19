@@ -1,0 +1,11 @@
+.brand-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #495057 !important;
+    color: #f8f9fa !important;
+}
