@@ -1,0 +1,43 @@
+.brand-name {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #495057 !important;
+    color: #f8f9fa !important;
+}
+
+.slogan {
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.img-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #17a2b8;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

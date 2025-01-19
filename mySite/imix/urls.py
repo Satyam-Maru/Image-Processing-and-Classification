@@ -20,4 +20,5 @@ from imix import views
 
 urlpatterns = [
     path('', views.homepage, name='home'),
+    path('base/', views.base, name='base')
 ]
