@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,42 +12,72 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body class="bg-dark">
+<body class="bg-dark text-white">
 
     {% include "imix/header.html" %}
 
-    <header class="bg-danger text-white text-center py-3 my-4">
+    <header class="bg-danger text-center py-3 my-4">
         <h1>Welcome to the Image Processing and Classification Website</h1>
         <p>Explore powerful tools to process and classify your images efficiently.</p>
     </header>
+
+    <div class="demo_container text-center my-5 position-relative">
+        <h2>Do you know what images actually look like in binaries?</h2>
+        <p class="text-info">Explore how image data transforms from a visual format to raw binary matrices!</p>
+        
+        <div class="d-flex justify-content-center align-items-center mt-4 position-relative">
+            <!-- Left Image -->
+            <div class="image-wrapper">
+                <img src="{% static 'images/demo_img.jpg' %}" alt="Demo Image" class="border rounded" width="300">
+            </div>
+    
+            <!-- Arrow -->
+            <div class="arrow-wrapper mx-3 position-relative">
+                <div class="arrow bg-transparent text-white d-flex align-items-center justify-content-center"
+                    id="hover-arrow">
+                    &#8594; <!-- Unicode for right arrow -->
+                </div>
+            </div>            
+    
+            <!-- Right Image -->
+            <div class="image-wrapper">
+                <img src="{% static 'images/demo_img_matrix.jpg' %}" alt="Demo Matrix Image" class="border rounded"
+                    id="matrix-image" width="300">
+            </div>
+        </div>
+    </div>    
 
     <div class="container">
         
         <div class="row mt-4 g-3">
             
             {% comment %} For blur {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/blur_original.jpg' %}" 
-                            alt=""
+                            alt="Blur img"
                             class="img-hover" 
-                            data-hover="{% static 'images/blur.jpg' %}">
+                            data-hover="{% static 'images/blur.jpg' %}" 
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
-                        blur description
+                        <p>blur description</p>
                     </div> 
                 </div>
             </div>
 
             {% comment %} For Resize {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/resize_original.jpg' %}" 
-                            alt=""
+                            alt="Resize img"
                             class="img-hover" 
-                            data-hover="{% static 'images/resize.jpg' %}">
+                            data-hover="{% static 'images/resize.jpg' %}"
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
                         resize description
@@ -59,14 +88,16 @@
 
         <div class="row mt-2 g-3">
             
-                {% comment %} For Brightness {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            {% comment %} For Brightness {% endcomment %}
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/brightness_original.jpg' %}" 
-                            alt=""
+                            alt="Brighten img"
                             class="img-hover" 
-                            data-hover="{% static 'images/brightness.jpg' %}">
+                            data-hover="{% static 'images/brightness.jpg' %}"
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
                         brightness description
@@ -75,13 +106,15 @@
             </div>
 
             {% comment %} For grayscale {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/grayscale_original.jpg' %}" 
-                            alt=""
+                            alt="Grayscale img"
                             class="img-hover" 
-                            data-hover="{% static 'images/grayscale.jpg' %}">
+                            data-hover="{% static 'images/grayscale.jpg' %}"
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
                         grayscale description
@@ -94,13 +127,15 @@
         <div class="row mt-2 g-3">
         
             {% comment %} For edge detection {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/tree.jpg' %}" 
-                            alt=""
+                            alt="Edge detected img"
                             class="img-hover" 
-                            data-hover="{% static 'images/tree_edge.jpg' %}">
+                            data-hover="{% static 'images/tree_edge.jpg' %}"
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
                         edge description
@@ -109,13 +144,15 @@
             </div>
 
             {% comment %} For morphology {% endcomment %}
-            <div class="col-md-6 text-white img-card">
-                <div class="my-container border border-info rounded">
+            <div class="col-md-6 img-card">
+                <div class="my-container border border-info border-2 rounded">
                     <div class="imgs p-2">
                         <img src="{% static 'images/morphology_original.jpg' %}" 
-                            alt=""
+                            alt="Erosion img"
                             class="img-hover" 
-                            data-hover="{% static 'images/morphology.jpg' %}">
+                            data-hover="{% static 'images/morphology.jpg' %}"
+                            width="100%"
+                            height="100%">
                     </div>
                     <div class="description p-2">
                         morphology description
@@ -127,10 +164,10 @@
 
     <div class="container my-4">
         <div class="row">
-            <div class="col-md-6 p-5 text-white border border-info rounded">
+            <div class="col-md-6 p-5 border border-info rounded">
                 <a href="{% url 'img_process' %}">Process your images</a> 
             </div>
-            <div class="col-md-6 p-5 text-white border border-info rounded">
+            <div class="col-md-6 p-5 border border-info rounded">
                 <a href="{% url 'img_classify' %}">Classify your images from selected range.</a>
             </div>
         </div>
@@ -158,9 +195,23 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hoverArrow = document.getElementById('hover-arrow');
+            const matrixImage = document.getElementById('matrix-image');
+            const originalImage = "{% static 'images/demo_img_matrix.jpg' %}";
+            const hoverImage = "{% static 'images/demo_img_matrix_values.jpg' %}";
+    
+            hoverArrow.addEventListener('mouseenter', () => {
+                matrixImage.src = hoverImage; // Change to hover image
+            });
+    
+            hoverArrow.addEventListener('mouseleave', () => {
+                matrixImage.src = originalImage; // Revert to original image
+            });
+        });
+        
     </script>
-    
-    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
