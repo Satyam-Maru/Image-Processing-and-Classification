@@ -1,0 +1,44 @@
+.img-section {
+    width: 60vw;
+    height: 90vh;
+    /* background-color: red; */
+}
+
+.menu-section {
+    width: 20vw;
+    height: 90vh;
+    /* background-color: green; */
+}
+
+.upload-container {
+    width: 100%;
+    text-align: center;
+    border: 3px dashed salmon;
+    border-radius: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-container.dragover {
+    background-color: lightgray;
+    /* border-color: black; */
+}
+
+.upload-container img {
+    max-width: 100%;
+}
+
+.upload-container input {
+    display: none;
+}
+
+.upload-container label {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
