@@ -1,9 +1,7 @@
 .slogan {
-    height: 30vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
+    background: linear-gradient(135deg, #7a7a7a, #585858);
+    font-family: 'Zilla Slab', serif;
+    text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.8);
 }
 
 .img-card {
@@ -31,12 +29,16 @@
 }
 
 .demo_container {
-    background: linear-gradient(135deg, #1f4037, #99f2c8); /* Green gradient */
+    margin: 10%;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.8);
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    font-family: 'Varela Round', serif;
+    color: #fff700; /* Lemon yellow text */
+    text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.8);
 }
 
 .demo_container::before,
