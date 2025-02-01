@@ -115,3 +115,14 @@
 .tool-btn:hover::before {
     transform: translate(-50%, -50%) scale(1);
 }
+
+.tool-btn.selected {
+    background: rgba(255, 255, 255, 0.2); /* Change color when selected */
+    transform: scale(1.05); /* Optional: You can keep the scale effect for the selected button */
+}
+
+.slider-section{
+    background-color: salmon;
+    height: 35%;
+    margin: 1.5rem 0;
+}

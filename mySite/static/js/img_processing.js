@@ -70,7 +70,26 @@ document.querySelectorAll(".tool-btn").forEach(button => {
         button.style.setProperty("--x", `${e.clientX - rect.left}px`);
         button.style.setProperty("--y", `${e.clientY - rect.top}px`);
     });
+
     button.addEventListener("click", (e) => {
-        e.preventDefault();  // Prevents the default action of the button (like submitting a form or page reload)
+        // Prevents the default action of the button (like submitting a form or page reload)
+        e.preventDefault();
+        
+        // Print the button's value (text content) to the console
+        console.log(button.textContent.trim());  // .trim() to remove any extra spaces
+
+        // Remove 'selected' class from all buttons
+        document.querySelectorAll(".tool-btn").forEach(btn => {
+            btn.classList.remove('selected');
+        });
+
+        // Add 'selected' class to the clicked button
+        button.classList.add('selected');
     });
+});
+
+const submit_button = document.getElementById("submit_btn");
+
+submit_button.addEventListener("click", (e) => {
+    e.preventDefault();
 });
