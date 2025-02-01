@@ -18,7 +18,7 @@
     <form action="#">
       <div class="container-fluid mt-3">
           <div class="row main-section">
-              <div class="col-sm-8 img-section d-flex justify-content-center mx-2">
+              <div class="col-sm-8 img-section d-flex justify-content-center">
                   <div class="upload-container" id="upload-container">
                     <div class="browse" id="browse-section">
                       <p>Drag and drop an image here, or</p>
@@ -31,13 +31,17 @@
                   </div>
               </div>
   
-              <div class="col-sm-4 menu-section">
+            <div class="col-sm-4 menu-section">
                 
-                
-              </div>
+            </div>
           </div>
       </div>
     </form>
+
+    <!-- New container for the "Browse Again" button -->
+    <div class="container" id="browse-again-container" style="display: none;">
+      <button class="btn btn-primary" id="reset-button">Browse Again</button>
+    </div>
 
     {% include "imix/footer.html" %}
 
