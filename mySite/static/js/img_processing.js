@@ -90,6 +90,6 @@ document.querySelectorAll(".tool-btn").forEach(button => {
 
 const submit_button = document.getElementById("submit_btn");
 
-submit_button.addEventListener("click", (e) => {
-    e.preventDefault();
-});
+// submit_button.addEventListener("click", (e) => {
+//     e.preventDefault();
+// });

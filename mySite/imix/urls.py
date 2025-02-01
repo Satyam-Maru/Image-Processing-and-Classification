@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from imix import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.homepage, name='home'),
     path('img_process/', views.img_process, name='img_process'),
     path('img_classify/', views.img_classify, name='img_classify')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

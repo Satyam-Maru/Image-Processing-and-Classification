@@ -15,7 +15,8 @@
     
     {% include "imix/header.html" %}
 
-    <form action="#">
+    <form action="{% url 'img_process' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
       <div class="container-fluid mt-3">
           <div class="row main-section">
               <div class="col-sm-8 img-section d-flex justify-content-center">
@@ -23,7 +24,7 @@
                     <div class="browse" id="browse-section">
                       <p>Drag and drop an image here, or</p>
                       <label for="file-input">Browse</label>
-                      <input type="file" id="file-input" accept="image/*">
+                      <input type="file" id="file-input" name="image" accept="image/*">
                     </div>
                     <div id="preview" style="display: none;">
                       <!-- Image will be displayed here -->
@@ -72,6 +73,14 @@
     <div class="container" id="browse-again-container" style="display: none;">
       <button class="btn btn-primary" id="reset-button">Browse Again</button>
     </div>
+
+    {% if file_url %}
+      <div class="container mt-3">
+        <h4>Uploaded Image</h4>
+        <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid">
+      </div>
+    {% endif %}
+
 
     {% include "imix/footer.html" %}
 
