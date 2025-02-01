@@ -61,3 +61,16 @@ function resetView() {
 function addResetButtonListener() {
     resetButton.addEventListener('click', resetView);
 }
+
+/* Capture mouse position */
+document.querySelectorAll(".tool-btn").forEach(button => {
+    button.addEventListener("mousemove", (e) => {
+
+        let rect = button.getBoundingClientRect();
+        button.style.setProperty("--x", `${e.clientX - rect.left}px`);
+        button.style.setProperty("--y", `${e.clientY - rect.top}px`);
+    });
+    button.addEventListener("click", (e) => {
+        e.preventDefault();  // Prevents the default action of the button (like submitting a form or page reload)
+    });
+});
