@@ -4,14 +4,41 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from imix import processing_tools as tools
+from imix import classifier
 import cv2
 import numpy as np
+import base64
+from PIL import Image
+from io import BytesIO
 
 def homepage(request):
     return render(request, 'imix/index.html')
 
 def img_classify(request):
-    return render(request, 'imix/img_classification.html')
+
+    if request.method == 'POST' and request.FILES.get('image'):
+        uploaded_image = request.FILES['image'].read()  # Get the uploaded image
+
+        # Process the image as needed (without saving)
+        # image_name = uploaded_image.name  # Just an example, use it as required
+
+        # image = Image.open(uploaded_image)
+        # buffer = BytesIO()
+        # image.save(buffer, format=image.format)
+        # image_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+        np_img = np.frombuffer(uploaded_image, np.uint8)  # Convert to NumPy array
+        image_new = cv2.imdecode(np_img, cv2.IMREAD_COLOR)  # Decode image
+
+        prediction = classifier.get_prediction(image_new)
+
+        # Pass base64 string to template
+        # image_data = f"data:image/{uploaded_image.content_type.split('/')[-1]};base64,{image_base64}"
+
+        return render(request, 'imix/img_classification.html', 
+                      { 'scroll_height': 50, 'prediction': prediction})
+
+    return render(request, 'imix/img_classification.html', {'scroll_height': 50})
 
 @csrf_exempt
 def img_process(request):

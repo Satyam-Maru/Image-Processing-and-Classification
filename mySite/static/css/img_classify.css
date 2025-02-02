@@ -1,0 +1,72 @@
+.img-section {
+    width: 60vw;
+    height: 90vh;
+    /* background-color: red; */
+}
+
+.menu-section {
+    width: 20vw;
+    height: 90vh;
+    /* background-color: green; */
+}
+
+.upload-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: 3px dashed salmon;
+    border-radius: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Prevents any overflow */
+}
+
+.upload-container.dragover {
+    background-color: lightgray;
+    /* border-color: black; */
+}
+
+/* Updated image style */
+.upload-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    /* margin: 0 auto; */
+}
+
+.upload-container input {
+    display: none;
+}
+
+.upload-container label {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#browse-again-container{
+    text-align: center;
+    margin-top: 10%;
+}
+
+#tools-card {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2C3E50, #1C2833); /* Smooth dark blend */
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(44, 62, 80, 0.6), 
+                0px 4px 8px rgba(0, 0, 0, 0.3); /* Soft glow with depth */
+    padding: 20px;
+}
+
+.card-heading{
+    text-align: center;
+}
