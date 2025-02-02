@@ -87,9 +87,3 @@ document.querySelectorAll(".tool-btn").forEach(button => {
         button.classList.add('selected');
     });
 });
-
-const submit_button = document.getElementById("submit_btn");
-
-// submit_button.addEventListener("click", (e) => {
-//     e.preventDefault();
-// });
