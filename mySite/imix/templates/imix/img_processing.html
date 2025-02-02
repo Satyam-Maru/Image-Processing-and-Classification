@@ -80,7 +80,7 @@
                          
 
                       <div class="slider-section">
-
+                        
                       </div>
 
                       <div class="confirm-section d-flex justify-content-center">
@@ -125,9 +125,37 @@
     }
   };
 
-  document.getElementById("img-form").onsubmit = function () {
-    localStorage.setItem('scrollPosition', window.scrollY);
-  };
+  document.getElementById("img-form").onsubmit = function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(document.getElementById("img-form"));
+
+    fetch("{% url 'img_process' %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.blob(); // Convert response to blob
+    })
+    .then(blob => {
+        let imageUrl = URL.createObjectURL(blob); // Create image URL
+        console.log("Image URL:", imageUrl); // Log the image URL
+        document.getElementById("preview").innerHTML = `<img src="${imageUrl}" class="img-fluid"/>`;
+        document.getElementById("preview").style.display = "block";
+        document.getElementById("browse-section").style.display = "none";
+        document.getElementById("browse-again-container").style.display = "block";
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while processing the image. Please try again.");
+    });
+};
 
   function sendButtonID(buttonID) {
     fetch("{% url 'img_process' %}", {
@@ -143,12 +171,12 @@
     .catch(error => console.error("Error:", error));
   }
 
-  fetch("{% url 'img_process' %}", { method: "POST", body: formData })
-      .then(response => response.blob()) // Convert response to blob
-      .then(blob => {
-          let imageUrl = URL.createObjectURL(blob); // Create image URL
-          document.getElementById("preview").innerHTML = `<img src="${imageUrl}" class="img-fluid"/>`;
-      });
+  document.getElementById("reset-button").onclick = function () {
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("browse-section").style.display = "block";
+    document.getElementById("browse-again-container").style.display = "none";
+    document.getElementById("file-input").value = ""; // Clear the file input
+  };
 
 </script>
 

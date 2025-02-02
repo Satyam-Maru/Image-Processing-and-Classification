@@ -13,7 +13,7 @@ def homepage(request):
 def img_classify(request):
     return render(request, 'imix/img_classification.html')
 
-@csrf_exempt  # Use CSRF token in JS instead in production
+@csrf_exempt
 def img_process(request):
     if request.method == "POST":
         button_id = None
@@ -54,6 +54,10 @@ def img_process(request):
                 if processed_image is not None:
                     # Encode processed image to return as response
                     _, buffer = cv2.imencode(".jpg", processed_image)
+                    print("Processed image successfully. Returning image response.")
                     return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
-
+                else:
+                    print("Processed image is None.")
+            else:
+                print("Button ID or image is missing.")
     return render(request, "imix/img_processing.html", {"scroll_height": 50})
