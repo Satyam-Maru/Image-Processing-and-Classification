@@ -40,24 +40,32 @@ def img_process(request):
             button_id = request.session.get("button_id")
 
             if button_id and image is not None:
-                print("Processing image using processing_tools...")
-
                 # Use processing_tools for image processing
                 if button_id == "grayscale":
                     processed_image = tools.grayscale(image)
+                elif button_id == "resize":
+                    pass
                 elif button_id == "blur":
-                    processed_image = tools.blur(image)
+                    processed_image = tools.apply_blur(image)
                 elif button_id == "edge_detection":
-                    processed_image = tools.edge_detection(image)
-                # Add more transformations as needed
+                    processed_image = tools.detect_edges(image)
+                elif button_id == "threshold":
+                    processed_image = tools.apply_threshold(image)
+                elif button_id == "morphology":
+                    processed_image = tools.apply_morphology(image)
+                elif button_id == "brightness":
+                    processed_image = tools.adjust_brightness(image)
+                elif button_id == "adjust_rgb":
+                    pass
+                elif button_id == "plot_rgb":
+                    pass
 
-                if processed_image is not None:
+            if processed_image is not None:
                     # Encode processed image to return as response
-                    _, buffer = cv2.imencode(".jpg", processed_image)
-                    print("Processed image successfully. Returning image response.")
-                    return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
-                else:
-                    print("Processed image is None.")
+                _, buffer = cv2.imencode(".jpg", processed_image)
+                return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
             else:
+                    print("Processed image is None.")
+        else:
                 print("Button ID or image is missing.")
     return render(request, "imix/img_processing.html", {"scroll_height": 50})
