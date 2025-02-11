@@ -24,4 +24,4 @@ urlpatterns = [
     path('', views.homepage, name='home'),
     path('img_process/', views.img_process, name='img_process'),
     path('img_classify/', views.img_classify, name='img_classify')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

@@ -80,7 +80,7 @@
                          
 
                       <div class="slider-section">
-                        
+                          
                       </div>
 
                       <div class="confirm-section d-flex justify-content-center">
@@ -89,17 +89,17 @@
                         </button>
                       </div>
 
+                      <!-- New container for the "Browse Again" button -->
+                      <div class="container" id="browse-again-container" style="display: none;">
+                        <button class="btn btn-primary" id="reset-button" type="button">Browse Again</button>
+                      </div>
+
                     </div>
                 </div>
               </div>            
           </div>
       </div>
     </form>
-
-    <!-- New container for the "Browse Again" button -->
-    <div class="container" id="browse-again-container" style="display: none;">
-      <button class="btn btn-primary" id="reset-button">Browse Again</button>
-    </div>
 
     {% if file_url %}
       <div class="container mt-3">
@@ -170,13 +170,6 @@
     .then(data => console.log("Server Response:", data))
     .catch(error => console.error("Error:", error));
   }
-
-  document.getElementById("reset-button").onclick = function () {
-    document.getElementById("preview").style.display = "none";
-    document.getElementById("browse-section").style.display = "block";
-    document.getElementById("browse-again-container").style.display = "none";
-    document.getElementById("file-input").value = ""; // Clear the file input
-  };
 
 </script>
 

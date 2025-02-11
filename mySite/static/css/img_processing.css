@@ -52,10 +52,8 @@
 }
 
 #browse-again-container{
-    width: 40vw;
-    display: flex;
-    justify-content: center;
-    margin-top: 2%;
+    text-align: center;
+    margin-top: 2rem;
 }
 
 #tools-card {
@@ -101,9 +99,9 @@
 .tool-btn::before {
     content: "";
     position: absolute;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, transparent 50%);
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, hsla(0, 0%, 100%, 0.703) 10%, transparent 50%);
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.2s ease-out;
