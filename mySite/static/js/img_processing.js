@@ -32,18 +32,26 @@ fileInput.addEventListener('change', (event) => {
     }
 });
 
+window.currentImageBase64 = "";
+
 // Function to handle image file
 function handleFiles(file) {
     if (file.type.startsWith('image/')) {
         const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = (e) => {
+            currentImageBase64 = e.target.result;
+            // console.log(typeof currentImageBase64);
             browseSection.style.display = 'none'; // Hide the browse section
             preview.style.display = 'block'; // Show the preview section
-            preview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image" class="img-fluid">`;
+            preview.innerHTML = `<img src="${currentImageBase64}" alt="Uploaded Image" class="img-fluid">`;
+            // console.log(`this is original image ${e.target.result}`);
             browseAgainContainer.style.display = 'block'; // Show the "Browse Again" button
             addResetButtonListener(); // Attach listener to the reset button
-        };
-        reader.readAsDataURL(file);
+            
+            document.getElementById("imageBase64").value = currentImageBase64; // Remove "data:image/png;base64,"
+            console.log('you got into handleFiles()')
+    };
     } else {
         alert('Please upload a valid image file.');
     }

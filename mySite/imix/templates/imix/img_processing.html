@@ -25,6 +25,7 @@
                       <p>Drag and drop an image here, or</p>
                       <label for="file-input">Browse</label>
                       <input type="file" id="file-input" name="image" accept="image/*">
+                      <input type="hidden" name="image_base64" id="imageBase64">
                     </div>
                     <div id="preview" style="display: none;">
                       <!-- Image will be displayed here -->
@@ -101,20 +102,15 @@
       </div>
     </form>
 
-    {% if file_url %}
-      <div class="container mt-3">
-        <h4>Uploaded Image</h4>
-        <img src="{{ file_url }}" alt="Uploaded Image" class="img-fluid">
-      </div>
-    {% endif %}
-
     {% include "imix/footer.html" %}
 
 <script src={% static 'js/img_processing.js' %}></script>
-<script>
+
+<script >
+  
   window.onload = function () {
     let storedScrollPosition = localStorage.getItem('scrollPosition');
-
+    
     if (storedScrollPosition) {
       // Restore the scroll position from localStorage (after form submission)
       window.scrollTo(0, storedScrollPosition);
@@ -125,28 +121,41 @@
     }
   };
 
+
   document.getElementById("img-form").onsubmit = function (event) {
     event.preventDefault(); // Prevent the default form submission
+    
+    if (!currentImageBase64) {
+      alert("Please upload an image before submitting.");
+      return;
+    }
 
-    const formData = new FormData(document.getElementById("img-form"));
-
+    //const formData = new FormData();
+    //formData.append("image", currentImageBase64);
+    //formData.append("text", "a new var through json");
+    
+    
+    
     fetch("{% url 'img_process' %}", {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRFToken": "{{ csrf_token }}"
-        }
+      method: "POST",
+      credentials: "same-origin", // Ensure cookies (including CSRF) are sent
+      body: JSON.stringify({ image: currentImageBase64 }),
+      headers: {
+        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+      }
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.blob(); // Convert response to blob
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Convert response to blob
     })
-    .then(blob => {
-        let imageUrl = URL.createObjectURL(blob); // Create image URL
-        console.log("Image URL:", imageUrl); // Log the image URL
-        document.getElementById("preview").innerHTML = `<img src="${imageUrl}" class="img-fluid"/>`;
+    .then(data => {
+        currentImageUrl = data.image_url;
+        console.log(currentImageBase64 == data.base64);
+        currentImageBase64 = currentImageUrl;
+        // console.log("Image URL:", imageUrl); 
+        document.getElementById("preview").innerHTML = `<img src="${currentImageUrl}" class="img-fluid"/>`;
         document.getElementById("preview").style.display = "block";
         document.getElementById("browse-section").style.display = "none";
         document.getElementById("browse-again-container").style.display = "block";
@@ -157,7 +166,7 @@
     });
 };
 
-  function sendButtonID(buttonID) {
+  window.sendButtonID = function (buttonID) {
     fetch("{% url 'img_process' %}", {
         method: "POST",
         headers: {
@@ -169,10 +178,9 @@
     .then(response => response.json())
     .then(data => console.log("Server Response:", data))
     .catch(error => console.error("Error:", error));
-  }
+  };
 
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
