@@ -81,7 +81,10 @@
                          
 
                       <div class="slider-section">
-                          
+                        <div>
+                          <input type="range" id="slider" min="-20" max="20" value="0">
+                          <p>Value: <span id="sliderValue">0</span></p>                        
+                        </div>
                       </div>
 
                       <div class="confirm-section d-flex justify-content-center">
@@ -125,21 +128,17 @@
   document.getElementById("img-form").onsubmit = function (event) {
     event.preventDefault(); // Prevent the default form submission
     
+    sliderValue = document.getElementById("slider").value;
+
     if (!currentImageBase64) {
       alert("Please upload an image before submitting.");
       return;
     }
 
-    //const formData = new FormData();
-    //formData.append("image", currentImageBase64);
-    //formData.append("text", "a new var through json");
-    
-    
-    
     fetch("{% url 'img_process' %}", {
       method: "POST",
       credentials: "same-origin", // Ensure cookies (including CSRF) are sent
-      body: JSON.stringify({ image: currentImageBase64 }),
+      body: JSON.stringify({ image: currentImageBase64, slider_value: sliderValue }),
       headers: {
         "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
       }

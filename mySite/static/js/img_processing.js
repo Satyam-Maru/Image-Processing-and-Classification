@@ -95,3 +95,7 @@ document.querySelectorAll(".tool-btn").forEach(button => {
         button.classList.add('selected');
     });
 });
+
+document.getElementById("slider").addEventListener("input", function () {
+    document.getElementById("sliderValue").innerText = this.value;
+});
