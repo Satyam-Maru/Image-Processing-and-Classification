@@ -111,3 +111,7 @@ def img_classify(request):
                       { 'scroll_height': 50, 'prediction': prediction})
 
     return render(request, 'imix/img_classification.html', {'scroll_height': 50})
+
+def login(request):
+
+    return render(request, "imix/login.html")
