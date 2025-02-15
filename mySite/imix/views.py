@@ -1,7 +1,5 @@
-from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
 from imix import processing_tools as tools
 from imix import classifier
@@ -12,9 +10,41 @@ from PIL import Image
 from io import BytesIO
 import re
 
+from .forms import CreateUser
+from django.contrib.auth import login
+
+# login / signUp
+def registerUser(request):
+    form = CreateUser()
+
+    if request.method == 'POST':
+        print("POST data:", request.POST)  # Debugging
+        form = CreateUser(request.POST)
+        if form.is_valid():
+            print("Form is valid")  # Debugging
+            user = form.save()
+            print("User created:", user)  # Debugging
+            return redirect('img_process')
+        else:
+            print("Form is invalid")  # Debugging
+            print(form.errors)  # Debugging
+    else:
+        print("Request method is not POST")  # Debugging
+
+    context = {'form': form}
+    return render(request, 'imix/signup.html', context)
+
+def login(request):
+
+    return render(request, "imix/login.html")
+
 def homepage(request):
     return render(request, 'imix/index.html')
 
+
+# main work of backend for processing and classification
+
+# PROCESSING
 def img_process(request):
     if request.method == "POST":
         button_id = None
@@ -32,12 +62,7 @@ def img_process(request):
 
         # Handle image upload
         if json.loads(request.body).get("image"):
-            # image_file = request.FILES["image"].read()  # Read image into memory
-            # print(request.FILES)
-            # np_img = np.frombuffer(image_file, np.uint8)  # Convert to NumPy array
-            # image = cv2.imdecode(np_img, cv2.IMREAD_COLOR)  # Decode image
-            # print('yes you got the image!')
-            # Get button ID from session (if available)
+
             button_id = request.session.get("button_id")
             print("inside the image_base64 if block")
 
@@ -97,6 +122,7 @@ def img_process(request):
                 return JsonResponse({"error": 'hi'}, status=404)
     return render(request, "imix/img_processing.html", {"scroll_height": 50})
 
+#  CLASSIFICATION
 def img_classify(request):
 
     if request.method == 'POST' and request.FILES.get('image'):
@@ -111,7 +137,3 @@ def img_classify(request):
                       { 'scroll_height': 50, 'prediction': prediction})
 
     return render(request, 'imix/img_classification.html', {'scroll_height': 50})
-
-def login(request):
-
-    return render(request, "imix/login.html")
