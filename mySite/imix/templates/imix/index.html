@@ -1,223 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Image Processing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round:wght@400;500;700&display=swap" rel="stylesheet">    
-    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;700&display=swap" rel="stylesheet">    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body class="bg-dark text-white">
+<body>
 
-    {% include "imix/header.html" %}
-
-    <header class="text-center slogan py-3 my-4 fs-2 container rounded">
-        <h1>Welcome to the Image Processing and Classification Website</h1>
-        <p>Explore powerful tools to process and classify your images efficiently.</p>
-    </header>
-
-    <div class="demo_container text-center fs-2 my-5 position-relative">
-        <h2>Do you know what images actually look like in binaries?</h2>
-        <p class="fs-3">Explore how image data transforms from a visual format to raw binary matrices!</p>
-        
-        <div class="d-flex justify-content-center align-items-center mt-4 position-relative">
-            <!-- Left Image -->
-            <div class="image-wrapper">
-                <img src="{% static 'images/demo_img.jpg' %}" alt="Demo Image" class="border rounded" width="300">
-            </div>
+    {% include "imix/header.html" %} 
     
-            <!-- Arrow -->
-            <div class="arrow-wrapper mx-3 position-relative">
-                <div class="arrow bg-transparent text-white d-flex align-items-center justify-content-center"
-                    id="hover-arrow">
-                    &#8594; <!-- Unicode for right arrow -->
-                </div>
-            </div>            
+    <div id="particles-js"></div>
     
-            <!-- Right Image -->
-            <div class="image-wrapper">
-                <img src="{% static 'images/demo_img_matrix.jpg' %}" alt="Demo Matrix Image" class="border rounded"
-                    id="matrix-image" width="300">
-            </div>
-        </div>
-    </div>    
+    <div class="main-content">
+        <h1 class="main-title animate__animated animate__fadeIn">Process. Analyze. Classify.</h1>
+        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Transform your images with advanced AI
+            processing using cutting-edge algorithms and real-time analysis</p>
 
-    <div class="container">
-        
-        <div class="row mt-4 g-3">
-            
-            {% comment %} For blur {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/blur_original.jpg' %}" 
-                            alt="Blur img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/blur.jpg' %}" 
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        <p>blur description</p>
-                    </div> 
-                </div>
+        <div class="processing-container animate__animated animate__fadeIn animate__delay-2s">
+            <div class="image-box">
+                <div class="upload-icon"></div>
             </div>
-
-            {% comment %} For Resize {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/resize_original.jpg' %}" 
-                            alt="Resize img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/resize.jpg' %}"
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        resize description
-                    </div> 
-                </div>
-            </div>
+            <div class="connector"></div>
+            <div class="result-box"></div>
         </div>
 
-        <div class="row mt-2 g-3">
-            
-            {% comment %} For Brightness {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/brightness_original.jpg' %}" 
-                            alt="Brighten img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/brightness.jpg' %}"
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        brightness description
-                    </div> 
-                </div>
+        <button class="btn btn-process animate__animated animate__fadeIn animate__delay-3s">
+            Start Processing
+        </button>
+
+        <div class="features-grid">
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🎯</div>
+                <h3>Precise Analysis</h3>
+                <p>Advanced algorithms ensure accurate image processing and classification with high precision rates.
+                </p>
             </div>
-
-            {% comment %} For grayscale {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/grayscale_original.jpg' %}" 
-                            alt="Grayscale img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/grayscale.jpg' %}"
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        grayscale description
-                    </div> 
-                </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-time Processing</h3>
+                <p>Lightning-fast processing capabilities deliver instant results for your image analysis needs.</p>
             </div>
-        </div>
-
-
-        <div class="row mt-2 g-3">
-        
-            {% comment %} For edge detection {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/tree.jpg' %}" 
-                            alt="Edge detected img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/tree_edge.jpg' %}"
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        edge description
-                    </div> 
-                </div>
-            </div>
-
-            {% comment %} For morphology {% endcomment %}
-            <div class="col-md-6 img-card">
-                <div class="my-container border border-info border-2 rounded">
-                    <div class="imgs p-2">
-                        <img src="{% static 'images/morphology_original.jpg' %}" 
-                            alt="Erosion img"
-                            class="img-hover" 
-                            data-hover="{% static 'images/morphology.jpg' %}"
-                            width="100%"
-                            height="100%">
-                    </div>
-                    <div class="description p-2">
-                        morphology description
-                    </div> 
-                </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Processing</h3>
+                <p>Your images are processed with enterprise-grade security and deleted after analysis.</p>
             </div>
         </div>
     </div>
 
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-md-6 p-5 border border-info rounded">
-                <a href="{% url 'img_process' %}">Process your images</a> 
+    <div class="main-content">
+        <h1 class="main-title animate__animated animate__fadeIn">Image Processing Tools</h1>
+        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Explore advanced AI-powered image
+            processing and classification capabilities</p>
+
+        <div class="features-grid">
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🎯</div>
+                <h3>Object Detection</h3>
+                <p>Identify and locate multiple objects within an image with high precision and real-time performance.
+                </p>
             </div>
-            <div class="col-md-6 p-5 border border-info rounded">
-                <a href="{% url 'img_classify' %}">Classify your images from selected range.</a>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🔍</div>
+                <h3>Face Recognition</h3>
+                <p>Advanced facial recognition with emotion and demographic analysis using cutting-edge AI algorithms.
+                </p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🌈</div>
+                <h3>Color Analysis</h3>
+                <p>Extract and analyze color palettes, dominant colors, and comprehensive color distribution in images.
+                </p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">📊</div>
+                <h3>Image Segmentation</h3>
+                <p>Precisely segment images into meaningful regions for advanced computer vision applications.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">📝</div>
+                <h3>Text Extraction</h3>
+                <p>Extract and recognize text from images using advanced OCR technologies.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🎨</div>
+                <h3>Style Transfer</h3>
+                <p>Apply artistic styles and transformations to images using neural network algorithms.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🌟</div>
+                <h3>Quality Enhancement</h3>
+                <p>Improve image resolution, reduce noise, and enhance visual clarity automatically.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">📷</div>
+                <h3>Image Classification</h3>
+                <p>Categorize images into predefined classes with machine learning models.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+                <div class="feature-icon">🤖</div>
+                <h3>Custom AI Models</h3>
+                <p>Train and deploy custom image processing models tailored to your specific requirements.</p>
             </div>
         </div>
     </div>
+    {% include "imix/footer.html" %} 
 
-    {% include "imix/footer.html" %}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const imgCards = document.querySelectorAll('.img-card'); // Select all img-card divs
-    
-            imgCards.forEach(card => {
-                const img = card.querySelector('.img-hover'); // Find the image inside the card
-                if (!img) return; // Skip if no image is found
-    
-                const originalSrc = img.src; // Save the original image source
-                const hoverSrc = img.getAttribute('data-hover'); // Get the hover image source
-    
-                card.addEventListener('mouseenter', () => {
-                    img.src = hoverSrc; // Change to hover image on mouse enter
-                });
-    
-                card.addEventListener('mouseleave', () => {
-                    img.src = originalSrc; // Revert to original image on mouse leave
-                });
-            });
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.1, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.1, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const hoverArrow = document.getElementById('hover-arrow');
-            const matrixImage = document.getElementById('matrix-image');
-            const originalImage = "{% static 'images/demo_img_matrix.jpg' %}";
-            const hoverImage = "{% static 'images/demo_img_matrix_values.jpg' %}";
-    
-            hoverArrow.addEventListener('mouseenter', () => {
-                matrixImage.src = hoverImage; // Change to hover image
-            });
-    
-            hoverArrow.addEventListener('mouseleave', () => {
-                matrixImage.src = originalImage; // Revert to original image
-            });
-        });
-        
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>

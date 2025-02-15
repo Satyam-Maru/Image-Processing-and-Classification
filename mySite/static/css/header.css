@@ -1,11 +1,68 @@
-.brand-name {
-    font-family: 'Georgia', serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #f8f9fa;
+.navbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    z-index: 100;
+    position: relative;
 }
 
-.dropdown-menu .dropdown-item:hover {
-    background-color: #495057 !important;
-    color: #f8f9fa !important;
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-icon {
+    width: 30px;
+    height: 30px;
+    background: var(--primary-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover .brand-icon {
+    transform: rotate(225deg);
+}
+
+.nav-link {
+    color: #9ca3af !important;
+    margin-left: 1.5rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
