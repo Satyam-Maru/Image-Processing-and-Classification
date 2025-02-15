@@ -17,10 +17,10 @@
         <!-- Wrap the navbar links in a collapsible div -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="#">Processing</a>
-                <a class="nav-link" href="#">Classification</a>
+                <a class="nav-link" href="{% url 'img_process' %}">Processing</a>
+                <a class="nav-link" href="{% url 'img_classify' %}">Classification</a>
                 <a class="nav-link" href="#">About</a>
-                <a class="nav-link" href="#">Sign Up/In</a>
+                <a class="nav-link" href="{% url 'login' %}">Sign Up/In</a>
             </div>
         </div>
     </div>
