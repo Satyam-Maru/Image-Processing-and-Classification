@@ -39,6 +39,7 @@ body {
     margin-bottom: 1rem;
     background: linear-gradient(45deg, #ffffff, var(--primary-color));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient 8s ease infinite;
 }

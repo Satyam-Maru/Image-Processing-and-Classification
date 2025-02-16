@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 import json
 from imix import processing_tools as tools
 from imix import classifier
@@ -11,7 +11,8 @@ from io import BytesIO
 import re
 
 from .forms import CreateUser
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, logout, login as auth_login
+from django.contrib import messages
 
 # login / signUp
 def registerUser(request):
@@ -24,10 +25,14 @@ def registerUser(request):
             print("Form is valid")  # Debugging
             user = form.save()
             print("User created:", user)  # Debugging
-            return redirect('img_process')
+            return redirect('login')
         else:
             print("Form is invalid")  # Debugging
             print(form.errors)  # Debugging
+            # Add form errors to the messages framework
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
         print("Request method is not POST")  # Debugging
 
@@ -35,8 +40,29 @@ def registerUser(request):
     return render(request, 'imix/signup.html', context)
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        # Authenticate the user
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            # Log the user in
+            auth_login(request, user)
+            print('user logged in')
+            return redirect('img_process')  # Redirect to the img_process template
+        else:
+            # Authentication failed, return an error message
+            messages.error(request, 'Invalid username or password.')
+            return render(request, 'imix/login.html', {'error': 'Invalid username or password.'})
+    
+    # If the request method is GET, just render the login page
+    return render(request, 'imix/login.html')
 
-    return render(request, "imix/login.html")
+def logout_view(request):
+    logout(request)
+    return redirect('img_process')  # Redirect to the login page after logout
 
 def homepage(request):
     return render(request, 'imix/index.html')

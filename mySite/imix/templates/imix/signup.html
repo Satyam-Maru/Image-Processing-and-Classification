@@ -38,9 +38,19 @@
             </div>
             <button type="submit" class="btn">Sign Up</button>
         </form>
+
         <div class="toggle-link">
             Already have an account? <a href="{% url 'login' %}" id="go-to-login">Login</a>
         </div>
+    
+        {% if messages %}
+            <script>
+                {% for message in messages %}
+                    alert("{{ message }}");
+                {% endfor %}
+            </script>
+        {% endif %}
+
     </div>
 </body>
 

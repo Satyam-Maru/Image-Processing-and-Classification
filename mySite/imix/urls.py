@@ -19,11 +19,13 @@ from django.urls import path
 from imix import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', views.homepage, name='home'),
     path('img_process/', views.img_process, name='img_process'),
     path('img_classify/', views.img_classify, name='img_classify'),
     path('login/', views.login, name='login'),
-    path('signup/', views.registerUser, name='signup')
+    path('signup/', views.registerUser, name='signup'),
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
 ]
