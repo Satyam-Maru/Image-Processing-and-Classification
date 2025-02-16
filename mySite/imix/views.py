@@ -13,6 +13,7 @@ import re
 from .forms import CreateUser
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # login / signUp
 def registerUser(request):
@@ -71,6 +72,7 @@ def homepage(request):
 # main work of backend for processing and classification
 
 # PROCESSING
+@login_required
 def img_process(request):
     if request.method == "POST":
         button_id = None
@@ -149,6 +151,7 @@ def img_process(request):
     return render(request, "imix/img_processing.html", {"scroll_height": 50})
 
 #  CLASSIFICATION
+@login_required
 def img_classify(request):
 
     if request.method == 'POST' and request.FILES.get('image'):
