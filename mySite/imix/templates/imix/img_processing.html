@@ -92,11 +92,16 @@
                         </div>
                       </div>
 
-                      <div class="confirm-section d-flex justify-content-center">
-                        <button class="btn btn-primary mt-4" type="submit" id="submit_btn">
-                          Apply Filter
+                      <div class="confirm-section d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary mt-4 mx-2" type="submit" id="submit_btn">
+                            Apply Filter
+                        </button>
+                        <button class="btn btn-primary mt-4 mx-2" id="download-button" type="button">
+                          Download
                         </button>
                       </div>
+
+
 
                       <!-- New container for the "Browse Again" button -->
                       <div class="container" id="browse-again-container" style="display: none;">
@@ -184,6 +189,36 @@
     .catch(error => console.error("Error:", error));
   };
 
+</script>
+
+<script>
+  document.getElementById('download-button').addEventListener('click', function () {
+      // Get the Base64 image string
+      const base64Image = currentImageBase64;
+
+      // Extract the Base64 data (remove the "data:image/png;base64," prefix)
+      const base64Data = base64Image.split(',')[1];
+
+      // Convert Base64 to a Blob
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/jpg' });  // Adjust the MIME type if needed
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'processed_image.png';  // Set the filename for the downloaded file
+
+      // Trigger the download
+      link.click();
+
+      // Clean up
+      URL.revokeObjectURL(link.href);
+  });
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>

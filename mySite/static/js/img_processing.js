@@ -63,6 +63,7 @@ function resetView() {
     preview.style.display = 'none'; // Hide the preview section
     browseSection.style.display = 'block'; // Show the browse section
     browseAgainContainer.style.display = 'none'; // Hide the "Browse Again" button  
+    currentImageBase64 = "";
 }
 
 // Attach event listener to the reset button
