@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
             <div class="brand-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -24,7 +24,9 @@
                     <!-- Display Log Out button if user is logged in -->
                     <form action="{% url 'logout' %}" method="post" class="d-inline">
                         {% csrf_token %}
-                        <button type="submit" class="nav-link btn btn-link" style="border: none; background: none; cursor: pointer;">Log Out</button>
+                        <button type="submit" class="nav-link btn btn-link" 
+                        style="background: none; cursor: pointer;">
+                        Log Out</button>
                     </form>
                 {% else %}
                     <!-- Display Sign Up/In link if user is not logged in -->

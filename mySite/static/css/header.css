@@ -1,3 +1,10 @@
+:root {
+    --primary-color: #4ade80;
+    --secondary-color: #4f46e5;
+    --dark-bg: #1a1d2e;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
 .navbar {
     background: var(--glass-bg) !important;
     backdrop-filter: blur(10px);
@@ -12,6 +19,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-left: 2rem;
 }
 
 .brand-icon {
@@ -31,11 +39,12 @@
 }
 
 .nav-link {
-    color: #9ca3af !important;
+    color: #ccd0d7 !important;
     margin-left: 1.5rem;
     position: relative;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
 
 .nav-link::after {
