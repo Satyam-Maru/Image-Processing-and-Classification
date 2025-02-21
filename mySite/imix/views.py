@@ -93,12 +93,12 @@ def img_process(request):
 
             button_id = request.session.get("button_id")
             print("inside the image_base64 if block")
-
             # *******************************************************
             #  New section for testing using hidden value in html
             data = json.loads(request.body)
             base64_image = data.get("image")
-            slider_value = data.get('slider_value')
+            slider_values = data.get("sliders", {})
+            print(f"slider values = {slider_values}")
             # print(base64_image)
 
             match = re.match(r"data:image/(?P<ext>.*?);base64,(?P<data>.*)", base64_image)
@@ -116,24 +116,34 @@ def img_process(request):
 
             if button_id and image is not None:
                 # Use processing_tools for image processing
+                
                 if button_id == "grayscale":
-                    processed_image = tools.grayscale(image, beta=int(slider_value))
+                    grayscale = float(slider_values.get("grayscale", 1.0))
+                    processed_image = tools.grayscale(image, alpha=grayscale)
+                
                 elif button_id == "resize":
-                    pass
+                    width = int(slider_values.get('width-input', 0))
+                    height = int(slider_values.get('height-input', 0))
+                    print(width, height)
+                    processed_image = tools.resize(image, width=width, height=height)
+                
                 elif button_id == "blur":
-                    processed_image = tools.apply_blur(image)
+                    blur = int(slider_values.get('blur', 5))
+                    processed_image = tools.apply_blur(image, kernel_size=blur)
+                
                 elif button_id == "edge_detection":
-                    processed_image = tools.detect_edges(image)
+                    edge = int(slider_values.get('edge_detection', 50))
+                    processed_image = tools.detect_edges(image, threshold1=edge)
+                
                 elif button_id == "threshold":
                     processed_image = tools.apply_threshold(image)
+                
                 elif button_id == "morphology":
                     processed_image = tools.apply_morphology(image)
+                
                 elif button_id == "brightness":
-                    processed_image = tools.adjust_brightness(image, beta=int(slider_value))
-                elif button_id == "adjust_rgb":
-                    pass
-                elif button_id == "plot_rgb":
-                    pass
+                    brightness = int(slider_values.get('brightness', 0))
+                    processed_image = tools.adjust_brightness(image, beta=brightness)
 
             if processed_image is not None:
                     # Encode processed image to return as response

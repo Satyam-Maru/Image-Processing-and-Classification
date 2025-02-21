@@ -115,15 +115,15 @@ window.renderSlider = function (buttonValue) {
             `;
             break;
 
-        case 'resizing':
+        case 'resize':
             sliderHTML = `
                 <div class="form-group">
                     <label for="width-input">Width</label>
-                    <input type="number" class="form-control dark-input" id="width-input" min="100" max="1024" value="500">
+                    <input type="number" class="form-control custom-slider dark-input" id="width-input" min="100" max="1024" value="500">
                 </div>
                 <div class="form-group">
                     <label for="height-input">Height</label>
-                    <input type="number" class="form-control dark-input" id="height-input" min="100" max="1024" value="500">
+                    <input type="number" class="form-control custom-slider dark-input" id="height-input" min="100" max="1024" value="500">
                 </div>
             `;
             break;
@@ -167,26 +167,6 @@ window.renderSlider = function (buttonValue) {
                         <span id="brightness-value" style="display: inline-block; width: 40px; text-align: center;">0</span>
                     </div>
                 `;
-            break;
-
-        case 'adjust_rgb':
-            sliderHTML = `
-                <div class="form-group" style="margin: 1.05rem 0;">
-                    <label for="red-slider">Red</label> <br>
-                    <input type="range" class="form-control-range custom-slider" id="red-slider" min="0" max="255" value="128">
-                    <span id="red-slider-value">128</span>
-                </div>
-                <div class="form-group" style="margin: 1.05rem 0;">
-                    <label for="green-slider">Green</label> <br>
-                    <input type="range" class="form-control-range custom-slider" id="green-slider" min="0" max="255" value="128">
-                    <span id="green-slider-value">128</span>
-                </div>
-                <div class="form-group" style="margin: 1.05rem 0;">
-                    <label for="blue-slider">Blue</label> <br>
-                    <input type="range" class="form-control-range custom-slider" id="blue-slider" min="0" max="255" value="128">
-                    <span id="blue-slider-value">128</span>
-                </div>
-            `;
             break;
 
         default:

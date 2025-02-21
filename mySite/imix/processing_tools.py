@@ -16,6 +16,12 @@ def grayscale(image, alpha=1.0, beta=0):
 
     return adjusted_gray
 
+def resize(image, width, height):
+
+    resized_image = cv2.resize(image, (width, height), interpolation=cv2.INTER_LINEAR)
+
+    return resized_image
+
 def apply_blur(image, kernel_size=5):
     """
     Parameters:
@@ -39,7 +45,6 @@ def detect_edges(image, threshold1=100):
 
     return cv2.Canny(gray, threshold1, threshold1 * 2)
     
-
 def apply_threshold(image):
     
     gray = grayscale(image)
@@ -74,26 +79,5 @@ def adjust_brightness(image, beta=0):
     """
     # Apply brightness adjustment
     adjusted_image = cv2.convertScaleAbs(image, alpha=1.0, beta=beta)
-
-    return adjusted_image
-
-def adjust_rgb_channels(image, red_factor=1.0, green_factor=1.0, blue_factor=1.0):
-    """
-    Parameters:
-    - image: Input RGB image (NumPy array).
-    - red_factor: Factor to adjust the red channel (default 1.0, >1 increases intensity).
-    - green_factor: Factor to adjust the green channel (default 1.0, >1 increases intensity).
-    - blue_factor: Factor to adjust the blue channel (default 1.0, >1 increases intensity).
-    """
-    # Split the image into RGB channels
-    b, g, r = cv2.split(image)
-
-    # Apply the intensity factor to each channel
-    r = cv2.convertScaleAbs(r, alpha=red_factor)
-    g = cv2.convertScaleAbs(g, alpha=green_factor)
-    b = cv2.convertScaleAbs(b, alpha=blue_factor)
-
-    # Merge the channels back together
-    adjusted_image = cv2.merge([b, g, r])
 
     return adjusted_image

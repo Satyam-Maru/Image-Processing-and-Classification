@@ -52,7 +52,7 @@
                           onclick="sendButtonID(this.value)">Grayscale</button>
 
                         <button 
-                          class="tool-btn" type="button" value="resizing"
+                          class="tool-btn" type="button" value="resize"
                           onclick="sendButtonID(this.value)">Resizing</button>
                         
                         <button 
@@ -74,14 +74,6 @@
                         <button 
                           class="tool-btn" type="button" value="brightness" 
                           onclick="sendButtonID(this.value)">Brightness</button>
-                        
-                        <button 
-                          class="tool-btn" type="button" value="adjust_rgb"
-                          onclick="sendButtonID(this.value)">Adjust RGB</button>
-                        
-                        <button 
-                          class="tool-btn" type="button" value="plot_rgb" 
-                          onclick="sendButtonID(this.value)">Plot RGB</button>
                     </div>  
 
                       <!-- Slider Container -->
@@ -132,22 +124,26 @@
 
   document.getElementById("img-form").onsubmit = function (event) {
     event.preventDefault(); // Prevent the default form submission
-    
-    sliderValue = document.getElementById("slider").value;
 
     if (!currentImageBase64) {
       alert("Please upload an image before submitting.");
       return;
     }
 
+     // Gather all slider values dynamically
+    let sliderValues = {};
+    document.querySelectorAll(".custom-slider").forEach(slider => {
+        sliderValues[slider.id] = slider.value; // Store slider ID and value
+    });
+
     fetch("{% url 'img_process' %}", {
       method: "POST",
       credentials: "same-origin", // Ensure cookies (including CSRF) are sent
-      body: JSON.stringify({ image: currentImageBase64, slider_value: sliderValue }),
+      body: JSON.stringify({ image: currentImageBase64, sliders: sliderValues }),
       headers: {
         "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
       }
-    })
+    })  
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
