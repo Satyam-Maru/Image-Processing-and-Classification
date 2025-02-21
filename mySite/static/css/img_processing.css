@@ -1,13 +1,13 @@
+/* General Styles */
 .img-section {
-    width: 60vw;
-    height: 90vh;
-    /* background-color: red; */
+    width: 100vw; /* Full width on mobile */
+    height: 90vh; /* Adjust height for mobile */
 }
 
 .menu-section {
-    width: 20vw;
-    height: 90vh;
-    /* background-color: green; */
+    width: 100vw; /* Full width on mobile */
+    height: auto; /* Adjust height for mobile */
+    padding: 10px; /* Add some padding */
 }
 
 .upload-container {
@@ -20,21 +20,17 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    /* Prevents any overflow */
 }
 
 .upload-container.dragover {
     background-color: lightgray;
-    /* border-color: black; */
 }
 
-/* Updated image style */
 .upload-container img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
-    /* margin: 0 auto; */
 }
 
 .upload-container input {
@@ -51,43 +47,45 @@
     cursor: pointer;
 }
 
-#browse-again-container{
+#browse-again-container {
     text-align: center;
     margin-top: 2rem;
 }
 
 #tools-card {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #2C3E50, #1C2833); /* Smooth dark blend */
+    height: auto; /* Adjust height for mobile */
+    background: linear-gradient(135deg, #2C3E50, #1C2833);
     color: white;
     border-radius: 12px;
     box-shadow: 0px 10px 20px rgba(44, 62, 80, 0.6), 
-                0px 4px 8px rgba(0, 0, 0, 0.3); /* Soft glow with depth */
+                0px 4px 8px rgba(0, 0, 0, 0.3);
     padding: 20px;
 }
 
 .tools-section {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Make it scrollable horizontally */
     gap: 10px;
     margin-top: 20px;
+    padding-bottom: 10px; /* Add some padding at the bottom */
 }
 
 .tool-btn {
-    position: relative; /* Ensure the pseudo-element is positioned correctly inside the button */
+    position: relative;
     padding: 12px;
     background: black;
     color: white;
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    overflow: hidden; /* Prevent the effect from rendering outside the button */
+    overflow: hidden;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.1s ease;
     display: inline-flex;
-    white-space: nowrap; /* Prevent button text from wrapping */
+    white-space: nowrap;
+    flex: 0 0 auto; /* Prevent flex items from shrinking */
 }
 
 .tool-btn:hover {
@@ -95,7 +93,6 @@
     transform: scale(1.05);
 }
 
-/* Mouse hover circle effect */
 .tool-btn::before {
     content: "";
     position: absolute;
@@ -106,7 +103,7 @@
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.2s ease-out;
     pointer-events: none;
-    top: var(--y); /* Position based on mouse coordinates */
+    top: var(--y);
     left: var(--x);
 }
 
@@ -115,31 +112,43 @@
 }
 
 .tool-btn.selected {
-    background: rgba(255, 255, 255, 0.2); /* Change color when selected */
-    transform: scale(1.05); /* Optional: You can keep the scale effect for the selected button */
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
 }
 
 .slider-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 35%;
+    height: 25vh; /* Adjust height for mobile */
     margin: 1.5rem 0;
-    background: linear-gradient(135deg, #2c3e50, #363636); /* Grey gradient background */
-    border-radius: 10px; /* Rounded corners for the card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
-    
-    color: #fff; /* Light text color for contrast */
+    background: linear-gradient(135deg, #2c3e50, #363636);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #fff;
 }
 
+/* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
-    .img-section,
-    .menu-section {
-        width: 100%;
-        height: auto;
+    .img-section {
+        height: 40vh; /* Adjust height for smaller screens */
     }
 
-    .container {
-        flex-direction: column;
+    .menu-section {
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .tools-section {
+        flex-wrap: nowrap; /* Ensure horizontal scrolling */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    .slider-container {
+        height: 20vh; /* Adjust height for smaller screens */
+    }
+
+    #tools-card {
+        padding: 10px; /* Reduce padding for smaller screens */
     }
 }
