@@ -25,96 +25,105 @@
     
     <div class="main-content">
         <h1 class="main-title animate__animated animate__fadeIn">Process. Analyze. Classify.</h1>
-        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Transform your images with advanced AI
+        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Transform your images with advanced 
             processing using cutting-edge algorithms and real-time analysis</p>
 
-        <div class="processing-container animate__animated animate__fadeIn animate__delay-2s">
-            <div class="image-box">
-                <div class="upload-icon"></div>
-            </div>
-            <div class="connector"></div>
-            <div class="result-box"></div>
-        </div>
-
         <button 
-        class="btn btn-process animate__animated animate__fadeIn animate__delay-3s"
+        class="btn btn-process animate__animated animate__fadeIn animate__delay-2s"
         onclick="window.location.href=' {% url "img_process" %} ' ">
             Start Processing
         </button>
 
         <div class="features-grid">
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-3s">
                 <div class="feature-icon">🎯</div>
                 <h3>Precise Analysis</h3>
                 <p>Advanced algorithms ensure accurate image processing and classification with high precision rates.
                 </p>
             </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-3s">
                 <div class="feature-icon">⚡</div>
                 <h3>Real-time Processing</h3>
                 <p>Lightning-fast processing capabilities deliver instant results for your image analysis needs.</p>
             </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
+            <div class="feature-card animate__animated animate__fadeIn animate__delay-3s">
                 <div class="feature-icon">🔒</div>
                 <h3>Secure Processing</h3>
-                <p>Your images are processed with enterprise-grade security and deleted after analysis.</p>
+                <p>Your images are processed with enterprise-grade security.</p>
             </div>
         </div>
     </div>
 
     <div class="main-content">
         <h1 class="main-title animate__animated animate__fadeIn">Image Processing Tools</h1>
-        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Explore advanced AI-powered image
-            processing and classification capabilities</p>
+        <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Explore image
+            processing and AI-powered classification capabilities</p>
 
         <div class="features-grid">
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🎯</div>
-                <h3>Object Detection</h3>
-                <p>Identify and locate multiple objects within an image with high precision and real-time performance.
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s"
+                onmouseover="changeImg(this, '{% static 'images/grayscale.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/grayscale_original.jpg' %}')">
+
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/grayscale_original.jpg' %}" alt="" class="hover_img rounded">
+                </div>
+                <h3>Grayscale</h3>
+                <p>
+                    Convert images to grayscale by removing color, keeping only intensity information for a classic, monochrome effect.
                 </p>
             </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🔍</div>
-                <h3>Face Recognition</h3>
-                <p>Advanced facial recognition with emotion and demographic analysis using cutting-edge AI algorithms.
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s"
+                onmouseover="changeImg(this, '{% static 'images/blur.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/blur_original.jpg' %}')"
+                >
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/blur_original.jpg' %}" alt="" class="hover_img rounded">
+                </div>
+                <h3>Blur</h3>
+                <p>
+                    Apply Gaussian to smooth out noise, reduce detail, or create artistic depth effects.
                 </p>
             </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🌈</div>
-                <h3>Color Analysis</h3>
-                <p>Extract and analyze color palettes, dominant colors, and comprehensive color distribution in images.
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s"
+                onmouseover="changeImg(this, '{% static 'images/tree_edge.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/tree.jpg' %}')"
+            >
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/tree.jpg' %}" alt="" class="hover_img rounded">
+                </div>
+                <h3>Edge Detection</h3>
+                <p>Identify and highlight object boundaries in an image using advanced edge detection algorithms like Canny.</p>
+            </div>
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s"
+                onmouseover="changeImg(this, '{% static 'images/erosion.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/erosion_original.jpg' %}')"
+            >
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/erosion_original.jpg' %}" alt="" class="hover_img rounded">
+                </div>
+                <h3>Erosion</h3>
+                <p>Refine image details by reducing noise and removing small objects using morphological erosion techniques.</p>
+            </div>
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s"
+                onmouseover="changeImg(this, '{% static 'images/erosion_original.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/erosion.jpg' %}')"
+            >
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/erosion.jpg' %}" alt="" class="hover_img">
+                </div>   
+                <h3>Dilation</h3>
+                <p>Expand the structure of objects in an image by enhancing boundaries and filling in gaps using morphological dilation.
                 </p>
             </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">📊</div>
-                <h3>Image Segmentation</h3>
-                <p>Precisely segment images into meaningful regions for advanced computer vision applications.</p>
-            </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">📝</div>
-                <h3>Text Extraction</h3>
-                <p>Extract and recognize text from images using advanced OCR technologies.</p>
-            </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🎨</div>
-                <h3>Style Transfer</h3>
-                <p>Apply artistic styles and transformations to images using neural network algorithms.</p>
-            </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🌟</div>
-                <h3>Quality Enhancement</h3>
-                <p>Improve image resolution, reduce noise, and enhance visual clarity automatically.</p>
-            </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">📷</div>
-                <h3>Image Classification</h3>
-                <p>Categorize images into predefined classes with machine learning models.</p>
-            </div>
-            <div class="feature-card animate__animated animate__fadeIn animate__delay-4s">
-                <div class="feature-icon">🤖</div>
-                <h3>Custom AI Models</h3>
-                <p>Train and deploy custom image processing models tailored to your specific requirements.</p>
+            <div class="feature-card text-center animate__animated animate__fadeIn animate__delay-3s" 
+                onmouseover="changeImg(this, '{% static 'images/brightness.jpg' %}')"
+                onmouseout="changeImg(this, '{% static 'images/brightness_original.jpg' %}')"
+            >
+                <div class="img-section mb-3 d-flex justify-content-center">
+                    <img src="{% static 'images/brightness_original.jpg' %}" alt="" class="hover_img">
+                </div>
+                <h3>Brightness</h3>
+                <p>Adjust the brightness levels of an image to enhance visibility, contrast, and overall appearance.</p>
             </div>
         </div>
     </div>
@@ -143,6 +152,12 @@
             },
             retina_detect: true
         });
+
+        function changeImg(element, newSrc) {
+            element.querySelector(".hover_img").src = newSrc;
+        }
+
+        document.getElementById('myNav').classList.add('fixed-top');
     </script>
 </body>
 

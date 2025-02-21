@@ -131,3 +131,15 @@
     
     color: #fff; /* Light text color for contrast */
 }
+
+@media (max-width: 768px) {
+    .img-section,
+    .menu-section {
+        width: 100%;
+        height: auto;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+}
