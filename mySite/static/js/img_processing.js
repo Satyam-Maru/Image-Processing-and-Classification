@@ -48,10 +48,10 @@ function handleFiles(file) {
             // console.log(`this is original image ${e.target.result}`);
             browseAgainContainer.style.display = 'block'; // Show the "Browse Again" button
             addResetButtonListener(); // Attach listener to the reset button
-            
+
             document.getElementById("imageBase64").value = currentImageBase64; // Remove "data:image/png;base64,"
             console.log('you got into handleFiles()')
-    };
+        };
     } else {
         alert('Please upload a valid image file.');
     }
@@ -83,7 +83,7 @@ document.querySelectorAll(".tool-btn").forEach(button => {
     button.addEventListener("click", (e) => {
         // Prevents the default action of the button (like submitting a form or page reload)
         e.preventDefault();
-        
+
         // Print the button's value (text content) to the console
         console.log(button.textContent.trim());  // .trim() to remove any extra spaces
 
@@ -97,6 +97,129 @@ document.querySelectorAll(".tool-btn").forEach(button => {
     });
 });
 
-document.getElementById("slider").addEventListener("input", function () {
-    document.getElementById("sliderValue").innerText = this.value;
-});
+window.renderSlider = function (buttonValue) {
+    const sliderSection = document.getElementById('slider-section');
+    sliderSection.innerHTML = ''; // Clear previous content
+
+    let sliderHTML = '';
+    console.log('inside the renderSlider()');
+
+    switch (buttonValue) {
+        case 'grayscale':
+            sliderHTML = `
+                <div class="form-group">
+                    <label for="grayscale">Intensity</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="grayscale" min="0.1" max="5.0" step="0.1" value="1">
+                    <span id="grayscale-value" style="display: inline-block; width: 40px; text-align: center;">1</span>
+                </div>
+            `;
+            break;
+
+        case 'resizing':
+            sliderHTML = `
+                <div class="form-group">
+                    <label for="width-input">Width</label>
+                    <input type="number" class="form-control dark-input" id="width-input" min="100" max="1024" value="500">
+                </div>
+                <div class="form-group">
+                    <label for="height-input">Height</label>
+                    <input type="number" class="form-control dark-input" id="height-input" min="100" max="1024" value="500">
+                </div>
+            `;
+            break;
+
+        case 'blur':
+            sliderHTML = `
+                    <div class="form-group">
+                        <label for="blur">Kernel size (Intensity) </label> <br>
+                        <input type="range" class="form-control-range custom-slider" id="blur" min="3" max="15" step="2" value="5">
+                        <span id="blur-value" style="display: inline-block; width: 40px; text-align: center;">5</span>
+                    </div>
+                `;
+            break;
+
+        case 'edge_detection':
+            sliderHTML = `
+                    <div class="form-group">
+                        <label for="edge_detection">Threshold value</label> <br>
+                        <input type="range" class="form-control-range custom-slider" 
+                            id="edge_detection" min="10" max="150" step="10" value="50">
+                        <span id="edge_detection-value" style="display: inline-block; width: 40px; text-align: center;">50</span>
+                    </div>
+                `;
+            break;
+
+        case 'morphology':
+            sliderHTML = `
+                    <div class="form-group">
+                    <button class="btn btn-outline-warning morph-btn" id="erode-btn">Erode</button>
+                    <button class="btn btn-outline-warning morph-btn" id="dilate-btn">Dilate</button>
+                    </div>
+                `;
+            break;
+
+        case 'brightness':
+            sliderHTML = `
+                    <div class="form-group">
+                        <label for="brightness">Brightness</label> <br>
+                        <input type="range" class="form-control-range custom-slider" 
+                            id="brightness" min="-100" max="100" step="5" value="0">
+                        <span id="brightness-value" style="display: inline-block; width: 40px; text-align: center;">0</span>
+                    </div>
+                `;
+            break;
+
+        case 'adjust_rgb':
+            sliderHTML = `
+                <div class="form-group" style="margin: 1.05rem 0;">
+                    <label for="red-slider">Red</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="red-slider" min="0" max="255" value="128">
+                    <span id="red-slider-value">128</span>
+                </div>
+                <div class="form-group" style="margin: 1.05rem 0;">
+                    <label for="green-slider">Green</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="green-slider" min="0" max="255" value="128">
+                    <span id="green-slider-value">128</span>
+                </div>
+                <div class="form-group" style="margin: 1.05rem 0;">
+                    <label for="blue-slider">Blue</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="blue-slider" min="0" max="255" value="128">
+                    <span id="blue-slider-value">128</span>
+                </div>
+            `;
+            break;
+
+        default:
+            sliderHTML = `<p>No options available for this tool.</p>`;
+    }
+
+    sliderSection.innerHTML = sliderHTML;
+
+    function updateSliderValue(event) {
+        const slider = event.target;
+        const valueDisplay = document.getElementById(`${slider.id}-value`);
+        if (valueDisplay) {
+            valueDisplay.textContent = slider.value;
+        }
+    }
+
+    // Attach event listeners to all sliders dynamically
+    document.querySelectorAll('.custom-slider').forEach(slider => {
+        slider.addEventListener('input', updateSliderValue);
+    });
+
+    const morphButtons = document.querySelectorAll(".morph-btn");
+
+    morphButtons.forEach(button => {
+        button.addEventListener("click", function () {
+
+            morphButtons.forEach(btn => {
+                btn.classList.remove("btn-warning");
+                btn.classList.add("btn-outline-warning");
+            });
+
+            this.classList.remove("btn-outline-warning");
+            this.classList.add("btn-warning");
+        });
+    });
+};

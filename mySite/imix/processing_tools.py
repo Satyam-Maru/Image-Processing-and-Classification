@@ -16,24 +16,16 @@ def grayscale(image, alpha=1.0, beta=0):
 
     return adjusted_gray
 
-def apply_blur(image, method="gaussian", kernel_size=5):
+def apply_blur(image, kernel_size=5):
     """
     Parameters:
     - image: Input RGB image (NumPy array).
     - method: Blurring method ("gaussian" or "median").
     - kernel_size: Size of the kernel (should be an odd number, default 5).
     """
-    if kernel_size % 2 == 0:  # Ensure kernel size is odd
-        kernel_size += 1
+    return cv2.GaussianBlur(image, (kernel_size, kernel_size), 0)
 
-    if method == "gaussian":
-        return cv2.GaussianBlur(image, (kernel_size, kernel_size), 0)
-    elif method == "median":
-        return cv2.medianBlur(image, kernel_size)
-    else:
-        raise ValueError("Invalid blur method. Choose 'gaussian' or 'median'.")
-
-def detect_edges(image, method="canny", threshold1=100, threshold2=200, ksize=3):
+def detect_edges(image, threshold1=100):
     """
     Parameters:
     - image: Input RGB image (NumPy array).
@@ -45,15 +37,8 @@ def detect_edges(image, method="canny", threshold1=100, threshold2=200, ksize=3)
     # Convert to grayscale
     gray = grayscale(image)
 
-    if method == "canny":
-        return cv2.Canny(gray, threshold1, threshold2)
-    elif method == "sobel":
-        sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=ksize)  # X-gradient
-        sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=ksize)  # Y-gradient
-        sobel_edges = cv2.magnitude(sobelx, sobely)  # Compute edge magnitude
-        return cv2.convertScaleAbs(sobel_edges)  # Convert to uint8
-    else:
-        raise ValueError("Invalid method. Choose 'canny' or 'sobel'.")
+    return cv2.Canny(gray, threshold1, threshold1 * 2)
+    
 
 def apply_threshold(image):
     
@@ -63,17 +48,6 @@ def apply_threshold(image):
     _, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
 
     return thresh
-
-def adjust_brightness(image, beta=0):
-    """
-    Parameters:
-    - image: Input RGB image (NumPy array).
-    - beta: Brightness adjustment factor (default 0, positive values brighten, negative values darken).
-    """
-    # Apply brightness adjustment
-    adjusted_image = cv2.convertScaleAbs(image, alpha=1.0, beta=beta)
-
-    return adjusted_image
 
 def apply_morphology(image, operation="erode", kernel_size=3):
     """
@@ -92,6 +66,17 @@ def apply_morphology(image, operation="erode", kernel_size=3):
     else:
         raise ValueError("Invalid operation. Choose 'erode' or 'dilate'.")
     
+def adjust_brightness(image, beta=0):
+    """
+    Parameters:
+    - image: Input RGB image (NumPy array).
+    - beta: Brightness adjustment factor (default 0, positive values brighten, negative values darken).
+    """
+    # Apply brightness adjustment
+    adjusted_image = cv2.convertScaleAbs(image, alpha=1.0, beta=beta)
+
+    return adjusted_image
+
 def adjust_rgb_channels(image, red_factor=1.0, green_factor=1.0, blue_factor=1.0):
     """
     Parameters:

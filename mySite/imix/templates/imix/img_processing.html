@@ -82,14 +82,11 @@
                         <button 
                           class="tool-btn" type="button" value="plot_rgb" 
                           onclick="sendButtonID(this.value)">Plot RGB</button>
-                    </div>
-                         
+                    </div>  
 
-                      <div class="slider-section">
-                        <div>
-                          <input type="range" id="slider" min="-20" max="20" value="0">
-                          <p>Value: <span id="sliderValue">0</span></p>                        
-                        </div>
+                      <!-- Slider Container -->
+                      <div class="slider-container">
+                        <div id="slider-section" style="font-size: 1.2rem;"></div>
                       </div>
 
                       <div class="confirm-section d-flex justify-content-center align-items-center">
@@ -100,8 +97,6 @@
                           Download
                         </button>
                       </div>
-
-
 
                       <!-- New container for the "Browse Again" button -->
                       <div class="container" id="browse-again-container" style="display: none;">
@@ -176,6 +171,8 @@
 };
 
   window.sendButtonID = function (buttonID) {
+    renderSlider(buttonID);
+    console.log('inside the sendButtonID() after calling the renderSlider()')
     fetch("{% url 'img_process' %}", {
         method: "POST",
         headers: {
@@ -187,6 +184,7 @@
     .then(response => response.json())
     .then(data => console.log("Server Response:", data))
     .catch(error => console.error("Error:", error));
+
   };
 
 </script>

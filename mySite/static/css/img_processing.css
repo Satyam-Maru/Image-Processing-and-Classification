@@ -119,11 +119,15 @@
     transform: scale(1.05); /* Optional: You can keep the scale effect for the selected button */
 }
 
-.slider-section{
+.slider-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid green;
     height: 35%;
     margin: 1.5rem 0;
+    background: linear-gradient(135deg, #2c3e50, #363636); /* Grey gradient background */
+    border-radius: 10px; /* Rounded corners for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    
+    color: #fff; /* Light text color for contrast */
 }
