@@ -217,13 +217,14 @@ document.getElementById('undo-btn').addEventListener('click', function () {
         return;
     }
 
-    // this.classList.remove("disabled");
-    // remove the latest one
+    // Contains only original image uploaded
+    if(base64_arr.length == 1){
+        alert('Please apply atleast one filter!')
+        return;
+    }
 
-    // solve for the length 1 issue
-    base64_arr.pop();
-    currentImageBase64 = base64_arr.pop();
-    console.log(base64_arr.length);
+    base64_arr.pop(); // Remove the existing image
+    currentImageBase64 = base64_arr[base64_arr.length - 1]; // Previous image
     document.getElementById("preview").innerHTML = `<img src="${currentImageBase64}" class="img-fluid"/>`;
 });
 
