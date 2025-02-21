@@ -158,8 +158,8 @@ window.renderSlider = function (buttonValue) {
         case 'morphology':
             sliderHTML = `
                     <div class="form-group">
-                    <button class="btn btn-outline-warning morph-btn" id="erode-btn">Erode</button>
-                    <button class="btn btn-outline-warning morph-btn" id="dilate-btn">Dilate</button>
+                    <button class="btn btn-outline-warning morph-btn" type="button" id="erode-btn">Erode</button>
+                    <button class="btn btn-outline-warning morph-btn" type="button" id="dilate-btn">Dilate</button>
                     </div>
                 `;
             break;

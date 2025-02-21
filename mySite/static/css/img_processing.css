@@ -141,7 +141,6 @@
     .tools-section {
         flex-wrap: nowrap; /* Ensure horizontal scrolling */
         overflow-x: auto; /* Enable horizontal scrolling */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
     .slider-container {
@@ -151,4 +150,18 @@
     #tools-card {
         padding: 10px; /* Reduce padding for smaller screens */
     }
+}
+
+.confirm-section .row {
+    margin: -5px; /* Reduce the margin between rows */
+}
+
+.confirm-section .col-sm {
+    padding: 5px; /* Reduce the padding between columns */
+}
+
+.confirm-section .btn {
+    margin: 5px 0; /* Reduce the margin between buttons */
+    width: 100%; /* Make buttons take full width of their container */
+    max-width: 200px; /* Optional: Set a max-width for the buttons */
 }
