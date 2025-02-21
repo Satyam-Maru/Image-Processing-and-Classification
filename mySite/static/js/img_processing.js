@@ -33,6 +33,8 @@ fileInput.addEventListener('change', (event) => {
 });
 
 window.currentImageBase64 = "";
+originalImageBase64 = "";
+window.base64_arr = [];
 
 // Function to handle image file
 function handleFiles(file) {
@@ -40,7 +42,9 @@ function handleFiles(file) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (e) => {
-            currentImageBase64 = e.target.result;
+            originalImageBase64 = e.target.result;
+            currentImageBase64 = originalImageBase64;
+            base64_arr.push(currentImageBase64);
             // console.log(typeof currentImageBase64);
             browseSection.style.display = 'none'; // Hide the browse section
             preview.style.display = 'block'; // Show the preview section
@@ -64,6 +68,8 @@ function resetView() {
     browseSection.style.display = 'block'; // Show the browse section
     browseAgainContainer.style.display = 'none'; // Hide the "Browse Again" button  
     currentImageBase64 = "";
+    originalImageBase64 = "";
+    base64_arr = [];
 }
 
 // Attach event listener to the reset button
@@ -203,3 +209,33 @@ window.renderSlider = function (buttonValue) {
         });
     });
 };
+
+document.getElementById('undo-btn').addEventListener('click', function () {
+
+    if (!currentImageBase64) {
+        alert('Please upload an image first!');
+        return;
+    }
+
+    // this.classList.remove("disabled");
+    // remove the latest one
+
+    // solve for the length 1 issue
+    base64_arr.pop();
+    currentImageBase64 = base64_arr.pop();
+    console.log(base64_arr.length);
+    document.getElementById("preview").innerHTML = `<img src="${currentImageBase64}" class="img-fluid"/>`;
+});
+
+document.getElementById('reset-btn').addEventListener('click', function () {
+
+    if (!currentImageBase64) {
+        alert('Please upload an image first!');
+        return;
+    }
+
+    currentImageBase64 = originalImageBase64;
+    base64_arr = [];
+    base64_arr.push(currentImageBase64);
+    document.getElementById("preview").innerHTML = `<img src="${currentImageBase64}" class="img-fluid"/>`;
+});

@@ -81,21 +81,39 @@
                         <div id="slider-section" style="font-size: 1.2rem;"></div>
                       </div>
 
-                      <div class="confirm-section d-flex justify-content-center align-items-center">
-                        <button class="btn btn-primary mt-4 mx-2" type="submit" id="submit_btn">
-                            Apply Filter
-                        </button>
-                        <button class="btn btn-primary mt-4 mx-2" id="download-button" type="button">
-                          Download
-                        </button>
-                      </div>
-
-                      <!-- New container for the "Browse Again" button -->
-                      <div class="container" id="browse-again-container" style="display: none;">
-                        <button class="btn btn-primary" id="reset-button" type="button">Browse Again</button>
-                      </div>
-
+                      <div class="confirm-section">
+                        <div class="row">
+                            <div class="col-sm d-flex justify-content-center">
+                                <button class="btn btn-primary mt-4" type="submit" id="submit_btn">
+                                    Apply Filter
+                                </button>
+                            </div>
+                            <div class="col-sm d-flex justify-content-center">
+                              <button class="btn btn-primary mt-4" id="undo-btn" type="button"> 
+                                  Undo
+                              </button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm d-flex justify-content-center">
+                            <button class="btn btn-primary mt-4" id="reset-btn" type="button"> 
+                                Reset
+                            </button>
+                          </div>
+                          <div class="col-sm d-flex justify-content-center">
+                            <button class="btn btn-primary mt-4" id="download-button" type="button">
+                                Download
+                            </button>
+                          </div>
+                        </div>
                     </div>
+                
+                      <!-- New container for the "Browse Again" button -->
+                    <div class="container" id="browse-again-container" style="display: none;">
+                      <button class="btn btn-primary" id="reset-button" type="button">Browse Again</button>
+                    </div>
+
+                  </div>
                 </div>
               </div>            
           </div>
@@ -154,6 +172,7 @@
         currentImageUrl = data.image_url;
         console.log(currentImageBase64 == data.base64);
         currentImageBase64 = currentImageUrl;
+        base64_arr.push(currentImageBase64);
         // console.log("Image URL:", imageUrl); 
         document.getElementById("preview").innerHTML = `<img src="${currentImageUrl}" class="img-fluid"/>`;
         document.getElementById("preview").style.display = "block";
