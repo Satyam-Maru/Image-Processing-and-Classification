@@ -187,7 +187,8 @@
 
   window.sendButtonID = function (buttonID) {
     renderSlider(buttonID);
-    console.log('inside the sendButtonID() after calling the renderSlider()')
+    console.log('inside the sendButtonID() after calling the renderSlider()');
+    console.log(buttonID);
     fetch("{% url 'img_process' %}", {
         method: "POST",
         headers: {

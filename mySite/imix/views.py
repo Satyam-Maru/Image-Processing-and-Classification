@@ -138,8 +138,11 @@ def img_process(request):
                 elif button_id == "threshold":
                     processed_image = tools.apply_threshold(image)
                 
-                elif button_id == "morphology":
-                    processed_image = tools.apply_morphology(image)
+                elif button_id == "erode":
+                    processed_image = tools.apply_morphology(image, operation="erode")
+
+                elif button_id == "dilate":
+                    processed_image = tools.apply_morphology(image, operation="dilate")
                 
                 elif button_id == "brightness":
                     brightness = int(slider_values.get('brightness', 0))
