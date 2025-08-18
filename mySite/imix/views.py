@@ -10,69 +10,10 @@ from PIL import Image
 from io import BytesIO
 import re
 
-from .forms import CreateUser
-from django.contrib.auth import authenticate, logout, login as auth_login
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-
-# login / signUp
-def registerUser(request):
-    form = CreateUser()
-
-    if request.method == 'POST':
-        print("POST data:", request.POST)  # Debugging
-        form = CreateUser(request.POST)
-        if form.is_valid():
-            print("Form is valid")  # Debugging
-            user = form.save()
-            print("User created:", user)  # Debugging
-            return redirect('login')
-        else:
-            print("Form is invalid")  # Debugging
-            print(form.errors)  # Debugging
-            # Add form errors to the messages framework
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field}: {error}")
-    else:
-        print("Request method is not POST")  # Debugging
-
-    context = {'form': form}
-    return render(request, 'imix/signup.html', context)
-
-def login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            # Log the user in
-            auth_login(request, user)
-            print('user logged in')
-            return redirect('img_process')  # Redirect to the img_process template
-        else:
-            # Authentication failed, return an error message
-            messages.error(request, 'Invalid username or password.')
-            return render(request, 'imix/login.html', {'error': 'Invalid username or password.'})
-    
-    # If the request method is GET, just render the login page
-    return render(request, 'imix/login.html')
-
-def logout_view(request):
-    logout(request)
-    return redirect('img_process')  # Redirect to the login page after logout
-
 def homepage(request):
     return render(request, 'imix/index.html')
 
-
-# main work of backend for processing and classification
-
 # PROCESSING
-@login_required
 def img_process(request):
     if request.method == "POST":
         button_id = None
@@ -164,7 +105,6 @@ def img_process(request):
     return render(request, "imix/img_processing.html", {"scroll_height": 50})
 
 #  CLASSIFICATION
-@login_required
 def img_classify(request):
 
     if request.method == 'POST' and request.FILES.get('image'):
