@@ -90,6 +90,31 @@ def img_process(request):
                 elif button_id == "blur_background":
                     processed_image = tools.blur_background(image)
 
+                elif button_id == "color_temperature":
+                    kelvin = int(slider_values.get('color_temperature', 6500))
+                    processed_image = tools.adjust_color_temperature(image, kelvin=kelvin)
+                
+                elif button_id == "vibrance":
+                    vibrance = int(slider_values.get('vibrance', 0))
+                    processed_image = tools.adjust_vibrance(image, factor=vibrance)
+                
+                elif button_id == "exposure":
+                    exposure = int(slider_values.get('exposure', 0))
+                    processed_image = tools.adjust_exposure(image, factor=exposure)
+                
+                elif button_id == "hue_saturation":
+                    hue = int(slider_values.get('hue', 0))
+                    saturation = int(slider_values.get('saturation', 0))
+                    processed_image = tools.adjust_hue_saturation(image, hue=hue, saturation=saturation)
+                
+                elif button_id == "color_balance":
+                    shadows = (int(slider_values.get('shadows_b', 0)), int(slider_values.get('shadows_g', 0)), int(slider_values.get('shadows_r', 0)))
+                    midtones = (int(slider_values.get('midtones_b', 0)), int(slider_values.get('midtones_g', 0)), int(slider_values.get('midtones_r', 0)))
+                    highlights = (int(slider_values.get('highlights_b', 0)), int(slider_values.get('highlights_g', 0)), int(slider_values.get('highlights_r', 0)))
+                    processed_image = tools.adjust_color_balance(image, shadows, midtones, highlights)
+
+                elif button_id == "invert_colors":
+                    processed_image = tools.invert_colors(image)
 
             if processed_image is not None:
                 # Encode processed image to return as response

@@ -66,7 +66,7 @@ function resetView() {
     fileInput.value = ''; // Reset the file input
     preview.style.display = 'none'; // Hide the preview section
     browseSection.style.display = 'block'; // Show the browse section
-    browseAgainContainer.style.display = 'none'; // Hide the "Browse Again" button  
+    browseAgainContainer.style.display = 'none'; // Hide the "Browse Again" button
     currentImageBase64 = "";
     originalImageBase64 = "";
     base64_arr = [];
@@ -113,46 +113,51 @@ window.renderSlider = function (buttonValue) {
     switch (buttonValue) {
         case 'grayscale':
             sliderHTML = `
-                <div class="form-group">
-                    <label for="grayscale">Intensity</label> <br>
-                    <input type="range" class="form-control-range custom-slider" id="grayscale" min="0.1" max="5.0" step="0.1" value="1">
-                    <span id="grayscale-value" style="display: inline-block; width: 40px; text-align: center;">1</span>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Intensity</span>
+                        <span id="grayscale-value">1</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="grayscale" min="0.1" max="5.0" step="0.1" value="1">
                 </div>
             `;
             break;
 
         case 'resize':
             sliderHTML = `
-                <div class="form-group">
+                <div class="slider-group">
                     <label for="width-input">Width</label>
-                    <input type="number" class="form-control custom-slider dark-input" id="width-input" min="100" max="1024" value="500">
+                    <input type="number" class="dark-input custom-slider" id="width-input" min="100" max="1024" value="500">
                 </div>
-                <div class="form-group">
+                <div class="slider-group">
                     <label for="height-input">Height</label>
-                    <input type="number" class="form-control custom-slider dark-input" id="height-input" min="100" max="1024" value="500">
+                    <input type="number" class="dark-input custom-slider" id="height-input" min="100" max="1024" value="500">
                 </div>
             `;
             break;
 
         case 'blur':
             sliderHTML = `
-                    <div class="form-group">
-                        <label for="blur">Kernel size (Intensity) </label> <br>
-                        <input type="range" class="form-control-range custom-slider" id="blur" min="3" max="15" step="2" value="5">
-                        <span id="blur-value" style="display: inline-block; width: 40px; text-align: center;">5</span>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Kernel Size</span>
+                        <span id="blur-value">5</span>
                     </div>
-                `;
+                    <input type="range" class="custom-slider" id="blur" min="3" max="15" step="2" value="5">
+                </div>
+            `;
             break;
 
         case 'edge_detection':
             sliderHTML = `
-                    <div class="form-group">
-                        <label for="edge_detection">Threshold value</label> <br>
-                        <input type="range" class="form-control-range custom-slider" 
-                            id="edge_detection" min="10" max="150" step="10" value="50">
-                        <span id="edge_detection-value" style="display: inline-block; width: 40px; text-align: center;">50</span>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Threshold</span>
+                        <span id="edge_detection-value">50</span>
                     </div>
-                `;
+                    <input type="range" class="custom-slider" id="edge_detection" min="10" max="150" step="10" value="50">
+                </div>
+            `;
             break;
 
         case 'erode':
@@ -162,7 +167,7 @@ window.renderSlider = function (buttonValue) {
         case 'morphology':
             sliderHTML = `
                     <div class="form-group">
-                    <button class="btn btn-outline-warning morph-btn" 
+                    <button class="btn btn-outline-warning morph-btn"
                     onclick="sendButtonID(this.value)" type="button" id="erode-btn" value="erode">Erode</button>
                     <button class="btn btn-outline-warning morph-btn"
                     onclick="sendButtonID(this.value)" type="button" id="dilate-btn" value="dilate">Dilate</button>
@@ -172,13 +177,96 @@ window.renderSlider = function (buttonValue) {
 
         case 'brightness':
             sliderHTML = `
-                    <div class="form-group">
-                        <label for="brightness">Brightness</label> <br>
-                        <input type="range" class="form-control-range custom-slider" 
-                            id="brightness" min="-100" max="100" step="5" value="0">
-                        <span id="brightness-value" style="display: inline-block; width: 40px; text-align: center;">0</span>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Brightness</span>
+                        <span id="brightness-value">0</span>
                     </div>
-                `;
+                    <input type="range" class="custom-slider" id="brightness" min="-100" max="100" step="5" value="0">
+                </div>
+            `;
+            break;
+
+        case 'color_temperature':
+            sliderHTML = `
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Temperature</span>
+                        <span id="color_temperature-value">6500K</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="color_temperature" min="1000" max="10000" step="100" value="6500">
+                </div>
+            `;
+            break;
+
+        case 'vibrance':
+            sliderHTML = `
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Vibrance</span>
+                        <span id="vibrance-value">0</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="vibrance" min="-100" max="100" step="5" value="0">
+                </div>
+            `;
+            break;
+
+        case 'exposure':
+            sliderHTML = `
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Exposure</span>
+                        <span id="exposure-value">0</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="exposure" min="-100" max="100" step="5" value="0">
+                </div>
+            `;
+            break;
+
+        case 'hue_saturation':
+            sliderHTML = `
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Hue</span>
+                        <span id="hue-value">0</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="hue" min="-180" max="180" step="5" value="0">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Saturation</span>
+                        <span id="saturation-value">0</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="saturation" min="-100" max="100" step="5" value="0">
+                </div>
+            `;
+            break;
+
+        case 'color_balance':
+            sliderHTML = `
+                <div class="form-group">
+                    <label>Shadows (R, G, B)</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="shadows_r" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="shadows_g" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="shadows_b" min="-50" max="50" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Midtones (R, G, B)</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="midtones_r" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="midtones_g" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="midtones_b" min="-50" max="50" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Highlights (R, G, B)</label> <br>
+                    <input type="range" class="form-control-range custom-slider" id="highlights_r" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="highlights_g" min="-50" max="50" value="0">
+                    <input type="range" class="form-control-range custom-slider" id="highlights_b" min="-50" max="50" value="0">
+                </div>
+            `;
+            break;
+        
+        case 'invert_colors':
+            sliderHTML = `<p>No options available for this tool.</p>`;
             break;
 
         default:
@@ -212,6 +300,20 @@ window.renderSlider = function (buttonValue) {
 
             this.classList.remove("btn-outline-warning");
             this.classList.add("btn-warning");
+        });
+    });
+
+    // Attach event listeners to all sliders dynamically
+    document.querySelectorAll('.custom-slider[type="range"]').forEach(slider => {
+        slider.addEventListener('input', (event) => {
+            const valueDisplay = document.getElementById(`${event.target.id}-value`);
+            if (valueDisplay) {
+                let value = event.target.value;
+                if (event.target.id === 'color_temperature') {
+                    value += 'K'; // Add Kelvin unit
+                }
+                valueDisplay.textContent = value;
+            }
         });
     });
 };

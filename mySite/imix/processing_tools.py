@@ -150,3 +150,94 @@ def blur_background(image, blur_intensity=25, edge_feather=5):
     combined = cv2.add(foreground, background).astype(np.uint8)
 
     return combined
+
+def adjust_color_temperature(image, kelvin=6500):
+    """
+    Adjusts the color temperature of an image.
+    - image: Input BGR image (NumPy array).
+    - kelvin: The target color temperature in Kelvin (e.g., 4000 for warmer, 9000 for cooler).
+    """
+    # Create a lookup table for temperature adjustment
+    # This is a simplified approach
+    temp_map = {
+        1000: (255, 56, 0), 2000: (255, 138, 18), 3000: (255, 180, 107),
+        4000: (255, 209, 163), 5000: (255, 228, 206), 6500: (255, 255, 255),
+        7500: (204, 226, 255), 9000: (166, 202, 255), 10000: (148, 186, 255)
+    }
+    
+    # Find the closest known temperature
+    closest_temp = min(temp_map.keys(), key=lambda k: abs(k - kelvin))
+    r_factor, g_factor, b_factor = [val / 255.0 for val in temp_map[closest_temp]]
+
+    # Apply the color shift
+    adjusted_image = image.copy()
+    adjusted_image[:, :, 2] = np.clip(adjusted_image[:, :, 2] * r_factor, 0, 255)
+    adjusted_image[:, :, 1] = np.clip(adjusted_image[:, :, 1] * g_factor, 0, 255)
+    adjusted_image[:, :, 0] = np.clip(adjusted_image[:, :, 0] * b_factor, 0, 255)
+
+    return adjusted_image
+
+def adjust_vibrance(image, factor=0):
+    """
+    Adjusts the vibrance of an image.
+    - image: Input BGR image (NumPy array).
+    - factor: Vibrance factor (-100 to 100).
+    """
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    s = np.clip(s * (1 + factor / 100.0), 0, 255)
+
+    final_hsv = cv2.merge((h, s.astype(np.uint8), v))
+    return cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
+
+def adjust_exposure(image, factor=0):
+    """
+    Adjusts the exposure of an image.
+    - image: Input BGR image (NumPy array).
+    - factor: Exposure factor (-100 to 100).
+    """
+    return cv2.convertScaleAbs(image, alpha=1.0, beta=factor)
+
+def adjust_hue_saturation(image, hue=0, saturation=0):
+    """
+    Adjusts the hue and saturation of an image.
+    - image: Input BGR image (NumPy array).
+    - hue: Hue adjustment factor (-180 to 180).
+    - saturation: Saturation adjustment factor (-100 to 100).
+    """
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    h = (h + hue) % 180
+    s = np.clip(s * (1 + saturation / 100.0), 0, 255)
+
+    final_hsv = cv2.merge((h.astype(np.uint8), s.astype(np.uint8), v))
+    return cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
+
+def adjust_color_balance(image, shadows, midtones, highlights):
+    """
+    Adjusts the color balance of an image.
+    - image: Input BGR image (NumPy array).
+    - shadows: BGR tuple for shadow adjustment.
+    - midtones: BGR tuple for midtone adjustment.
+    - highlights: BGR tuple for highlight adjustment.
+    """
+    # This is a complex operation, a simplified version is provided
+    # A proper implementation would involve lookup tables and curves
+    
+    # Simple channel scaling
+    b, g, r = cv2.split(image)
+    
+    b = np.clip(b + shadows[0] + midtones[0] + highlights[0], 0, 255)
+    g = np.clip(g + shadows[1] + midtones[1] + highlights[1], 0, 255)
+    r = np.clip(r + shadows[2] + midtones[2] + highlights[2], 0, 255)
+    
+    return cv2.merge((b.astype(np.uint8), g.astype(np.uint8), r.astype(np.uint8)))
+
+def invert_colors(image):
+    """
+    Inverts the colors of an image.
+    - image: Input BGR image (NumPy array).
+    """
+    return cv2.bitwise_not(image)
