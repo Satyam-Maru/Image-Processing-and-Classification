@@ -33,8 +33,7 @@
                       <input type="hidden" name="image_base64" id="imageBase64">
                     </div>
                     <div id="preview" style="display: none;">
-                      <!-- Image will be displayed here -->
-                    </div>
+                      </div>
                   </div>
               </div>
   
@@ -74,9 +73,16 @@
                         <button 
                           class="tool-btn" type="button" value="brightness" 
                           onclick="sendButtonID(this.value)">Brightness</button>
+                        
+                        <button 
+                          class="tool-btn" type="button" value="remove_background" 
+                          onclick="sendButtonID(this.value)">Remove Background</button>
+
+                        <button 
+                          class="tool-btn" type="button" value="blur_background" 
+                          onclick="sendButtonID(this.value)">Blur Background</button>
                     </div>  
 
-                      <!-- Slider Container -->
                       <div class="slider-container">
                         <div id="slider-section" style="font-size: 1.2rem;"></div>
                       </div>
@@ -108,8 +114,7 @@
                         </div>
                     </div>
                 
-                      <!-- New container for the "Browse Again" button -->
-                    <div class="container" id="browse-again-container" style="display: none;">
+                      <div class="container" id="browse-again-container" style="display: none;">
                       <button class="btn btn-primary" id="reset-button" type="button">Browse Again</button>
                     </div>
 
@@ -170,10 +175,8 @@
     })
     .then(data => {
         currentImageUrl = data.image_url;
-        console.log(currentImageBase64 == data.base64);
         currentImageBase64 = currentImageUrl;
-        base64_arr.push(currentImageBase64);
-        // console.log("Image URL:", imageUrl); 
+        base64_arr.push(currentImageBase64); 
         document.getElementById("preview").innerHTML = `<img src="${currentImageUrl}" class="img-fluid"/>`;
         document.getElementById("preview").style.display = "block";
         document.getElementById("browse-section").style.display = "none";
@@ -187,8 +190,6 @@
 
   window.sendButtonID = function (buttonID) {
     renderSlider(buttonID);
-    console.log('inside the sendButtonID() after calling the renderSlider()');
-    console.log(buttonID);
     fetch("{% url 'img_process' %}", {
         method: "POST",
         headers: {
@@ -198,7 +199,6 @@
         body: JSON.stringify({ button_id: buttonID })
     })
     .then(response => response.json())
-    .then(data => console.log("Server Response:", data))
     .catch(error => console.error("Error:", error));
 
   };

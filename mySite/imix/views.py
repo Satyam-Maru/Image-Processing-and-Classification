@@ -23,7 +23,6 @@ def img_process(request):
             try:
                 data = json.loads(request.body)
                 button_id = data.get("button_id", None)
-                print(f"Clicked Button ID: {button_id}")
                 request.session["button_id"] = button_id
                 return JsonResponse({"message": f"Received button ID: {button_id}"})
             except json.JSONDecodeError:
@@ -33,14 +32,11 @@ def img_process(request):
         if json.loads(request.body).get("image"):
 
             button_id = request.session.get("button_id")
-            print("inside the image_base64 if block")
             # *******************************************************
             #  New section for testing using hidden value in html
             data = json.loads(request.body)
             base64_image = data.get("image")
             slider_values = data.get("sliders", {})
-            print(f"slider values = {slider_values}")
-            # print(base64_image)
 
             match = re.match(r"data:image/(?P<ext>.*?);base64,(?P<data>.*)", base64_image)
             if not match:
@@ -65,7 +61,6 @@ def img_process(request):
                 elif button_id == "resize":
                     width = int(slider_values.get('width-input', 0))
                     height = int(slider_values.get('height-input', 0))
-                    print(width, height)
                     processed_image = tools.resize(image, width=width, height=height)
                 
                 elif button_id == "blur":
@@ -88,14 +83,20 @@ def img_process(request):
                 elif button_id == "brightness":
                     brightness = int(slider_values.get('brightness', 0))
                     processed_image = tools.adjust_brightness(image, beta=brightness)
+                
+                elif button_id == "remove_background":
+                    processed_image = tools.remove_background(image)
+                
+                elif button_id == "blur_background":
+                    processed_image = tools.blur_background(image)
+
 
             if processed_image is not None:
-                    # Encode processed image to return as response
-                _, buffer = cv2.imencode(".jpg", processed_image)
+                # Encode processed image to return as response
+                _, buffer = cv2.imencode(".png", processed_image) # Use png for transparency
                 
                 processed_image_base64 = base64.b64encode(buffer).decode("utf-8")
-                processed_image_url = f"data:image/jpeg;base64,{processed_image_base64}"
-                # print(processed_image_base64)
+                processed_image_url = f"data:image/png;base64,{processed_image_base64}"
 
                 return JsonResponse({"image_url": processed_image_url, "base64": processed_image_base64})
             else:
